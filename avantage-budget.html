@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Optimisation budgétaire – DFormPro Digital</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap');
+
+    *, html, body { background-color: #F2F0EF; }
+
+    body {
+      font-family: 'Arial Rounded MT Bold', 'Nunito', sans-serif;
+      font-weight: 700;
+      color: #000;
+      background-color: #F2F0EF !important;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Arial', sans-serif !important;
+      font-weight: bold !important;
+    }
+    h1 { font-style: italic !important; }
+
+    .text-cyan  { color: #67DAD5; }
+    .keep-white { background-color: transparent !important; }
+    .keep-cyan  { background-color: #67DAD5 !important; }
+    .keep-black { background-color: #000000 !important; }
+
+    /* All descendants of white cards inherit transparent bg */
+    .keep-white * { background-color: transparent !important; }
+    .keep-white .keep-cyan { background-color: #67DAD5 !important; }
+    .keep-white .keep-black { background-color: #000000 !important; }
+    .keep-white .keep-white { background-color: #ffffff !important; }
+
+    .shadow-neo       { box-shadow: 6px 6px 0px 0px #67DAD5; }
+    .shadow-neo-black { box-shadow: 6px 6px 0px 0px #000000; }
+
+    .bg-deco { pointer-events: none; position: absolute; z-index: 0; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      border: 2px solid;
+    }
+
+    .highlight-box {
+      border-left: 4px solid #67DAD5;
+      padding: 16px 20px;
+      background-color: transparent !important;
+      border-radius: 0 12px 12px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Arial', sans-serif;
+      font-weight: bold;
+      font-size: 14px;
+      color: #000;
+      text-decoration: none;
+      padding: 8px 20px;
+      border: 2px solid #000;
+      border-radius: 999px;
+      transition: all 0.2s;
+      background-color: #F2F0EF !important;
+    }
+    .back-btn:hover {
+      background-color: #000 !important;
+      color: #fff;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up  { animation: fadeUp 0.6s ease forwards; }
+    .delay-1  { animation-delay: 0.15s; opacity: 0; }
+    .delay-2  { animation-delay: 0.30s; opacity: 0; }
+    .delay-3  { animation-delay: 0.45s; opacity: 0; }
+
+    /* Bar chart animation */
+    @keyframes growBar {
+      from { width: 0; }
+    }
+    .bar-anim { animation: growBar 1s ease forwards; }
+
+    .section-divider {
+      display: flex; align-items: center; gap: 16px; margin: 32px 0;
+    }
+    .section-divider::before,
+    .section-divider::after {
+      content: ''; flex: 1; height: 2px; background: #67DAD5;
+    }
+
+    /* Cost row */
+    .cost-row {
+      background-color: transparent !important;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-family: 'Nunito', sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header style="background-color:#F2F0EF !important; border-bottom:2px solid #000;" class="fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between" style="background-color:transparent !important;">
+      <a href="index.html" style="background-color:transparent !important;">
+        <img src="images/logo.jpg" alt="DFormPro Digital" class="h-12 w-auto object-contain">
+      </a>
+      <a href="index.html" class="back-btn">
+        <span class="material-symbols-outlined" style="font-size:18px; background-color:transparent !important;">arrow_back</span>
+        Retour
+      </a>
+    </div>
+  </header>
+
+  <main style="padding-top:80px; background-color:#F2F0EF !important;">
+
+    <!-- ══════════════════════════════════════════
+         HERO
+    ══════════════════════════════════════════ -->
+    <section class="relative overflow-hidden" style="background-color:#F2F0EF !important;">
+      <img src="images/Angle Gauche .png" class="bg-deco" style="top:0;left:0;width:320px;opacity:0.45;" alt="">
+      <img src="images/Coté droit.png"    class="bg-deco" style="top:0;right:0;width:280px;opacity:0.35;" alt="">
+
+      <div class="max-w-4xl mx-auto px-6 py-20 text-center relative z-10" style="background-color:transparent !important;">
+
+        <div class="flex justify-center mb-6 fade-up" style="background-color:transparent !important;">
+          <span class="badge" style="border-color:#67DAD5; color:#67DAD5; background-color:#F2F0EF !important;">
+            <span class="material-symbols-outlined" style="font-size:16px; background-color:transparent !important;">savings</span>
+            Avantage stratégique n°3
+          </span>
+        </div>
+
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight fade-up delay-1">
+          Optimisation<br />
+          <span class="text-cyan">budgétaire</span>
+        </h1>
+
+        <p class="text-xl md:text-2xl font-bold fade-up delay-2" style="color:#74888F; font-family:'Arial',sans-serif; font-style:italic; background-color:transparent !important;">
+          Former mieux, pour moins cher.<br />Sans compromis sur la qualité.
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         INTRO + EXEMPLE
+    ══════════════════════════════════════════ -->
+    <section class="py-16 relative overflow-hidden" style="background-color:#F2F0EF !important;">
+      <img src="images/grand coté gauche.png" class="bg-deco" style="top:0;left:0;width:280px;opacity:0.3;" alt="">
+
+      <div class="max-w-6xl mx-auto px-6 relative z-10" style="background-color:transparent !important;">
+
+        <div class="highlight-box mb-12 max-w-3xl mx-auto fade-up">
+          <p class="text-lg font-bold" style="font-family:'Arial',sans-serif; color:#000;">
+            Prenons l'exemple d'une équipe de 10 intervenantes.
+          </p>
+        </div>
+
+        <!-- COMPARISON CARDS -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-14" style="background-color:transparent !important;">
+
+          <!-- Présentiel -->
+          <div class="keep-white rounded-2xl overflow-hidden shadow-neo-black fade-up" style="border:2px solid #000;">
+            <!-- Header -->
+            <div class="px-6 py-5" style="background-color:#000 !important; border-bottom:2px solid #000;">
+              <div class="flex items-center gap-3" style="background-color:transparent !important;">
+                <span class="material-symbols-outlined" style="font-size:24px; color:#fff; background-color:transparent !important;">apartment</span>
+                <h3 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:18px; color:#fff;">Formation présentielle (2 jours)</h3>
+              </div>
+            </div>
+            <!-- Body -->
+            <div class="p-6 space-y-3" style="background-color:#ffffff !important;">
+              <!-- Frais péda -->
+              <div class="cost-row" style="background-color:transparent !important; border:1px solid #e5e7eb;">
+                <div class="flex items-center gap-2" style="background-color:transparent !important;">
+                  <span class="material-symbols-outlined" style="font-size:18px; color:#74888F; background-color:transparent !important;">menu_book</span>
+                  <span style="font-weight:400; font-size:14px; color:#74888F;">Frais pédagogiques</span>
+                </div>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:16px; color:#000;">2 000 €</span>
+              </div>
+              <!-- Coûts salariaux -->
+              <div class="cost-row" style="background-color:transparent !important; border:1px solid #e5e7eb;">
+                <div class="flex items-center gap-2" style="background-color:transparent !important;">
+                  <span class="material-symbols-outlined" style="font-size:18px; color:#74888F; background-color:transparent !important;">badge</span>
+                  <span style="font-weight:400; font-size:14px; color:#74888F;">Coûts salariaux</span>
+                </div>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:16px; color:#000;">2 240 €</span>
+              </div>
+              <!-- Séparateur -->
+              <div style="height:1px; background-color:#e5e7eb !important;"></div>
+              <!-- Total -->
+              <div class="rounded-xl p-5 text-center" style="background-color:#fff3f3 !important; border:2px solid #ff4444;">
+                <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:12px; color:#74888F; margin-bottom:4px;">TOTAL</p>
+                <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:42px; color:#ff4444; line-height:1;">4 240 €</p>
+                <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:12px; color:#74888F; margin-top:4px;">pour 10 intervenantes</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Digitale -->
+          <div class="keep-white rounded-2xl overflow-hidden fade-up delay-1" style="border:2px solid #67DAD5; box-shadow:6px 6px 0px 0px #67DAD5;">
+            <!-- Header -->
+            <div class="px-6 py-5 keep-cyan" style="border-bottom:2px solid #000;">
+              <div class="flex items-center gap-3" style="background-color:transparent !important;">
+                <span class="material-symbols-outlined" style="font-size:24px; color:#000; background-color:transparent !important;">devices</span>
+                <h3 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:18px; color:#000;">Formation digitale DFORMPRO DIGITAL</h3>
+              </div>
+            </div>
+            <!-- Body -->
+            <div class="p-6 space-y-3" style="background-color:#ffffff !important;">
+              <!-- Frais péda -->
+              <div class="cost-row" style="background-color:transparent !important; border:1px solid #e5e7eb;">
+                <div class="flex items-center gap-2" style="background-color:transparent !important;">
+                  <span class="material-symbols-outlined" style="font-size:18px; color:#74888F; background-color:transparent !important;">menu_book</span>
+                  <span style="font-weight:400; font-size:14px; color:#74888F;">Frais pédagogiques</span>
+                </div>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:16px; color:#000;">890 €</span>
+              </div>
+              <!-- Coûts salariaux -->
+              <div class="cost-row" style="background-color:transparent !important; border:1px solid #e5e7eb;">
+                <div class="flex items-center gap-2" style="background-color:transparent !important;">
+                  <span class="material-symbols-outlined" style="font-size:18px; color:#74888F; background-color:transparent !important;">badge</span>
+                  <span style="font-weight:400; font-size:14px; color:#74888F;">Coûts salariaux</span>
+                </div>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:16px; color:#000;">320 €</span>
+              </div>
+              <!-- Séparateur -->
+              <div style="height:1px; background-color:#e5e7eb !important;"></div>
+              <!-- Total -->
+              <div class="rounded-xl p-5 text-center" style="background-color:rgba(103,218,213,0.08) !important; border:2px solid #67DAD5;">
+                <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:12px; color:#74888F; margin-bottom:4px;">TOTAL</p>
+                <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:42px; color:#67DAD5; line-height:1;">1 210 €</p>
+                <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:12px; color:#74888F; margin-top:4px;">pour 10 intervenantes</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- BIG SAVING HIGHLIGHT -->
+        <div class="keep-white rounded-2xl p-8 md:p-12 text-center shadow-neo fade-up delay-2" style="border:2px solid #000;">
+          <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:15px; color:#74888F; margin-bottom:8px;">Économie réalisée pour une seule action de formation</p>
+          <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:72px; color:#67DAD5; line-height:1;">+ 3 000 €</p>
+          <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:20px; color:#000; margin-top:8px;">d'économie pour une seule action de formation</p>
+          <!-- Visual bar comparison -->
+          <div class="max-w-lg mx-auto mt-10 space-y-5" style="background-color:transparent !important;">
+            <!-- Bar présentiel -->
+            <div style="background-color:transparent !important;">
+              <div class="flex justify-between mb-2" style="background-color:transparent !important;">
+                <span style="font-family:'Nunito',sans-serif; font-weight:700; font-size:13px; color:#74888F;">Présentiel</span>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:13px; color:#ff4444;">4 240 €</span>
+              </div>
+              <div style="height:14px; background-color:#e5e7eb !important; border-radius:999px; overflow:hidden;">
+                <div class="bar-anim" style="height:14px; width:100%; background-color:#ff4444 !important; border-radius:999px;"></div>
+              </div>
+            </div>
+            <!-- Bar digital -->
+            <div style="background-color:transparent !important;">
+              <div class="flex justify-between mb-2" style="background-color:transparent !important;">
+                <span style="font-family:'Nunito',sans-serif; font-weight:700; font-size:13px; color:#74888F;">Digital DFORMPRO</span>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:13px; color:#67DAD5;">1 210 €</span>
+              </div>
+              <div style="height:14px; background-color:#e5e7eb !important; border-radius:999px; overflow:hidden;">
+                <div class="bar-anim" style="height:14px; width:28.5%; background-color:#67DAD5 !important; border-radius:999px; animation-delay:0.3s;"></div>
+              </div>
+            </div>
+            <!-- Légende économie -->
+            <div class="flex items-center gap-2 justify-center pt-2" style="background-color:transparent !important;">
+              <span style="color:#67DAD5; font-size:20px;">↓</span>
+              <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:14px; color:#000;">71 % de réduction du coût total</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         DÉTAIL DES ÉCONOMIES (3 colonnes)
+    ══════════════════════════════════════════ -->
+    <section class="py-16 relative overflow-hidden" style="background-color:#F2F0EF !important;">
+      <img src="images/2 traits.png" class="bg-deco" style="top:10%;left:0;width:180px;opacity:0.4;" alt="">
+      <img src="images/pied de page.png" class="bg-deco" style="bottom:0;right:0;width:400px;opacity:0.3;" alt="">
+
+      <div class="max-w-6xl mx-auto px-6 relative z-10" style="background-color:transparent !important;">
+
+        <div class="text-center mb-14" style="background-color:transparent !important;">
+          <h2 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:32px; color:#000; margin-bottom:8px;">
+            D'où viennent les économies ?
+          </h2>
+          <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:15px; color:#74888F; background-color:transparent !important;">
+            Trois leviers concrets qui transforment vos coûts fixes en ressources libérées.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" style="background-color:transparent !important;">
+
+          <!-- Levier 1 : Frais pédagogiques -->
+          <div class="keep-white rounded-2xl p-6 fade-up" style="border:2px solid #e5e7eb;">
+            <div class="keep-cyan rounded-xl p-3 inline-flex mb-5" style="">
+              <span class="material-symbols-outlined" style="font-size:28px; color:#000; background-color:transparent !important;">menu_book</span>
+            </div>
+            <h3 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:18px; color:#000; margin-bottom:12px;">Frais pédagogiques réduits</h3>
+            <div class="space-y-3 mb-6" style="background-color:transparent !important;">
+              <div class="flex justify-between items-center" style="background-color:transparent !important;">
+                <span style="font-family:'Nunito',sans-serif; font-weight:400; font-size:13px; color:#74888F;">Présentiel</span>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#ff4444;">2 000 €</span>
+              </div>
+              <div style="height:1px; background-color:#e5e7eb !important;"></div>
+              <div class="flex justify-between items-center" style="background-color:transparent !important;">
+                <span style="font-family:'Nunito',sans-serif; font-weight:400; font-size:13px; color:#74888F;">Digital</span>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#67DAD5;">890 €</span>
+              </div>
+            </div>
+            <div class="rounded-xl p-3 text-center" style="background-color:rgba(103,218,213,0.08) !important; border:2px solid #67DAD5;">
+              <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:22px; color:#67DAD5;">− 1 110 €</p>
+              <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:11px; color:#74888F;">d'économie</p>
+            </div>
+            <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:12px; color:#74888F; margin-top:12px;">
+              Pas de formateur en déplacement, pas de location de salle, pas de supports papier.
+            </p>
+          </div>
+
+          <!-- Levier 2 : Coûts salariaux -->
+          <div class="keep-white rounded-2xl p-6 fade-up delay-1" style="border:2px solid #e5e7eb;">
+            <div class="keep-cyan rounded-xl p-3 inline-flex mb-5">
+              <span class="material-symbols-outlined" style="font-size:28px; color:#000; background-color:transparent !important;">badge</span>
+            </div>
+            <h3 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:18px; color:#000; margin-bottom:12px;">Coûts salariaux divisés par 7</h3>
+            <div class="space-y-3 mb-6" style="background-color:transparent !important;">
+              <div class="flex justify-between items-center" style="background-color:transparent !important;">
+                <span style="font-family:'Nunito',sans-serif; font-weight:400; font-size:13px; color:#74888F;">Présentiel (14h × 10)</span>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#ff4444;">2 240 €</span>
+              </div>
+              <div style="height:1px; background-color:#e5e7eb !important;"></div>
+              <div class="flex justify-between items-center" style="background-color:transparent !important;">
+                <span style="font-family:'Nunito',sans-serif; font-weight:400; font-size:13px; color:#74888F;">Digital (2h × 10)</span>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#67DAD5;">320 €</span>
+              </div>
+            </div>
+            <div class="rounded-xl p-3 text-center" style="background-color:rgba(103,218,213,0.08) !important; border:2px solid #67DAD5;">
+              <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:22px; color:#67DAD5;">− 1 920 €</p>
+              <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:11px; color:#74888F;">d'économie</p>
+            </div>
+            <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:12px; color:#74888F; margin-top:12px;">
+              2h de connexion flexible vs 14h d'immobilisation collective. Le temps libéré reste facturable.
+            </p>
+          </div>
+
+          <!-- Levier 3 : Coûts indirects -->
+          <div class="keep-white rounded-2xl p-6 fade-up delay-2" style="border:2px solid #e5e7eb;">
+            <div class="keep-cyan rounded-xl p-3 inline-flex mb-5">
+              <span class="material-symbols-outlined" style="font-size:28px; color:#000; background-color:transparent !important;">directions_car</span>
+            </div>
+            <h3 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:18px; color:#000; margin-bottom:12px;">Coûts indirects supprimés</h3>
+            <div class="space-y-2 mb-6" style="background-color:transparent !important;">
+              <div class="flex items-center gap-2" style="background-color:transparent !important;">
+                <span style="color:#ff4444; font-size:16px; flex-shrink:0;">✗</span>
+                <span style="font-family:'Nunito',sans-serif; font-weight:400; font-size:13px; color:#74888F;">Frais de déplacement formateur</span>
+              </div>
+              <div class="flex items-center gap-2" style="background-color:transparent !important;">
+                <span style="color:#ff4444; font-size:16px; flex-shrink:0;">✗</span>
+                <span style="font-family:'Nunito',sans-serif; font-weight:400; font-size:13px; color:#74888F;">Location de salle</span>
+              </div>
+              <div class="flex items-center gap-2" style="background-color:transparent !important;">
+                <span style="color:#ff4444; font-size:16px; flex-shrink:0;">✗</span>
+                <span style="font-family:'Nunito',sans-serif; font-weight:400; font-size:13px; color:#74888F;">Impression de supports papier</span>
+              </div>
+              <div class="flex items-center gap-2" style="background-color:transparent !important;">
+                <span style="color:#ff4444; font-size:16px; flex-shrink:0;">✗</span>
+                <span style="font-family:'Nunito',sans-serif; font-weight:400; font-size:13px; color:#74888F;">Remplacement des intervenantes absentes</span>
+              </div>
+              <div class="flex items-center gap-2" style="background-color:transparent !important;">
+                <span style="color:#ff4444; font-size:16px; flex-shrink:0;">✗</span>
+                <span style="font-family:'Nunito',sans-serif; font-weight:400; font-size:13px; color:#74888F;">Heures de CA non réalisées</span>
+              </div>
+            </div>
+            <div class="rounded-xl p-3 text-center" style="background-color:rgba(103,218,213,0.08) !important; border:2px solid #67DAD5;">
+              <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:16px; color:#000;">Déploiement immédiat</p>
+              <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:11px; color:#74888F;">à grande échelle, sans logistique</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         CONCLUSION
+    ══════════════════════════════════════════ -->
+    <section class="py-16 relative overflow-hidden" style="background-color:#F2F0EF !important;">
+      <img src="images/bas droit grand.png" class="bg-deco" style="bottom:0;right:0;width:360px;opacity:0.25;" alt="">
+
+      <div class="max-w-5xl mx-auto px-6 relative z-10" style="background-color:transparent !important;">
+
+        <div class="section-divider fade-up" style="background-color:transparent !important;">
+          <span></span>
+          <span class="badge" style="border-color:#67DAD5; color:#67DAD5; background-color:#F2F0EF !important; white-space:nowrap;">
+            <span class="material-symbols-outlined" style="font-size:16px; background-color:transparent !important;">lightbulb</span>
+            En résumé
+          </span>
+          <span></span>
+        </div>
+
+        <div class="keep-white rounded-2xl p-8 md:p-12 shadow-neo fade-up delay-1" style="border:2px solid #000;">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center" style="background-color:transparent !important;">
+            <div style="background-color:transparent !important;">
+              <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:15px; color:#74888F; margin-bottom:16px;">
+                Avec DFORMPRO DIGITAL, chaque euro investi en formation est optimisé.
+              </p>
+              <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:18px; color:#000; line-height:1.5;">
+                Suppression des frais logistiques. Réduction des coûts indirects. Déploiement immédiat à grande échelle.
+              </p>
+              <p style="font-family:'Arial',sans-serif; font-weight:bold; font-style:italic; font-size:16px; color:#67DAD5; margin-top:16px;">
+                Transformez vos coûts fixes en leviers de performance.
+              </p>
+            </div>
+            <div class="space-y-3" style="background-color:transparent !important;">
+              <div class="flex items-center gap-3 rounded-xl px-4 py-3" style="background-color:rgba(103,218,213,0.08) !important; border:2px solid #67DAD5;">
+                <div style="width:22px; height:22px; border-radius:50%; background-color:#67DAD5 !important; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:#000; font-size:13px; font-weight:bold;">✓</div>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:14px; color:#000;">71 % de réduction du coût total</span>
+              </div>
+              <div class="flex items-center gap-3 rounded-xl px-4 py-3" style="background-color:rgba(103,218,213,0.08) !important; border:2px solid #67DAD5;">
+                <div style="width:22px; height:22px; border-radius:50%; background-color:#67DAD5 !important; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:#000; font-size:13px; font-weight:bold;">✓</div>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:14px; color:#000;">+ 3 000 € économisés par action</span>
+              </div>
+              <div class="flex items-center gap-3 rounded-xl px-4 py-3" style="background-color:rgba(103,218,213,0.08) !important; border:2px solid #67DAD5;">
+                <div style="width:22px; height:22px; border-radius:50%; background-color:#67DAD5 !important; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:#000; font-size:13px; font-weight:bold;">✓</div>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:14px; color:#000;">Zéro logistique, déploiement immédiat</span>
+              </div>
+              <div class="flex items-center gap-3 rounded-xl px-4 py-3" style="background-color:rgba(103,218,213,0.08) !important; border:2px solid #67DAD5;">
+                <div style="width:22px; height:22px; border-radius:50%; background-color:#67DAD5 !important; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:#000; font-size:13px; font-weight:bold;">✓</div>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:14px; color:#000;">Scalable : même économie × N équipes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         CTA
+    ══════════════════════════════════════════ -->
+    <section class="px-6 py-16" style="background-color:#F2F0EF !important;">
+      <div class="max-w-5xl mx-auto rounded-[40px] py-16 px-8 md:px-12 text-center relative overflow-hidden keep-cyan" style="border:2px solid #000; box-shadow:8px 8px 0px 0px #000;">
+        <div class="absolute top-0 right-0 w-56 h-56 rounded-full translate-x-1/2 -translate-y-1/2" style="background-color:rgba(255,255,255,0.15) !important;"></div>
+        <div class="absolute bottom-0 left-0 w-40 h-40 rounded-full -translate-x-1/3 translate-y-1/3" style="background-color:rgba(255,255,255,0.15) !important;"></div>
+        <div class="relative z-10" style="background-color:transparent !important;">
+          <h2 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:32px; color:#000; margin-bottom:16px;">
+            Calculez vos économies potentielles
+          </h2>
+          <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:16px; color:rgba(0,0,0,0.75); margin-bottom:32px; background-color:transparent !important;">
+            Demandez votre devis personnalisé et découvrez combien DFORMPRO DIGITAL peut vous faire économiser.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4" style="background-color:transparent !important;">
+            <a href="index.html" class="inline-flex items-center gap-2 font-bold py-4 px-10 rounded-[20px] text-lg transition-all" style="background-color:#000 !important; color:#fff; font-family:'Nunito',sans-serif;">
+              Demander un devis
+              <span class="material-symbols-outlined" style="background-color:transparent !important;">arrow_forward</span>
+            </a>
+            <a href="index.html" class="inline-flex items-center gap-2 font-bold py-4 px-10 rounded-[20px] text-lg transition-all" style="background-color:#F2F0EF !important; color:#000; border:2px solid #000; font-family:'Nunito',sans-serif;">
+              Voir toutes nos formations
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="py-10 px-6 keep-black" style="border-top:2px solid rgba(255,255,255,0.1);">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4" style="background-color:transparent !important;">
+      <a href="index.html" class="inline-block rounded-xl p-2" style="background-color:#fff !important;">
+        <img src="images/logo.jpg" alt="DFormPro Digital" class="h-8 w-auto object-contain">
+      </a>
+      <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:13px; color:#fff; background-color:transparent !important;">
+        © 2024 DFormPro Digital. Tous droits réservés.
+      </p>
+      <a href="index.html" style="color:#67DAD5; font-family:'Arial',sans-serif; font-weight:bold; font-size:13px; background-color:transparent !important;">
+        ← Retour à l'accueil
+      </a>
+    </div>
+  </footer>
+
+</body>
+</html>

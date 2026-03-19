@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Réduction de l'impact planning – DFormPro Digital</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap');
+
+    *, html, body {
+      background-color: #F2F0EF;
+    }
+
+    body {
+      font-family: 'Arial Rounded MT Bold', 'Nunito', sans-serif;
+      font-weight: 700;
+      color: #000;
+      background-color: #F2F0EF !important;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Arial', sans-serif !important;
+      font-weight: bold !important;
+    }
+
+    h1 { font-style: italic !important; }
+
+    .text-cyan { color: #67DAD5; }
+    .bg-cyan { background-color: #67DAD5 !important; }
+    .border-cyan { border-color: #67DAD5 !important; }
+    .text-gray-soft { color: #74888F; }
+
+    .shadow-neo {
+      box-shadow: 6px 6px 0px 0px #67DAD5;
+    }
+    .shadow-neo-black {
+      box-shadow: 6px 6px 0px 0px #000000;
+    }
+
+    /* Comparison table */
+    .compare-table th {
+      font-family: 'Arial', sans-serif;
+      font-weight: bold;
+    }
+
+    /* Pill badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      border: 2px solid;
+    }
+
+    /* Check list items */
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 0;
+    }
+    .check-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    /* Big number highlight */
+    .big-stat {
+      font-family: 'Arial', sans-serif;
+      font-weight: bold;
+    }
+
+    /* Decorative background images */
+    .bg-deco { pointer-events: none; position: absolute; z-index: 0; }
+
+    /* Separator line with icon */
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 40px 0;
+    }
+    .section-divider::before,
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      height: 2px;
+      background: #67DAD5;
+    }
+
+    /* Timeline step */
+    .timeline-step {
+      display: flex;
+      gap: 20px;
+      position: relative;
+    }
+    .timeline-step::before {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 44px;
+      bottom: -20px;
+      width: 2px;
+      background: #67DAD5;
+    }
+    .timeline-step:last-child::before { display: none; }
+    .step-dot {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 3px solid #67DAD5;
+      background-color: #F2F0EF !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: 'Arial', sans-serif;
+      font-weight: bold;
+      font-size: 16px;
+      color: #67DAD5;
+    }
+
+    /* Animated counter */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up {
+      animation: fadeUp 0.6s ease forwards;
+    }
+    .fade-up-2 { animation-delay: 0.15s; opacity: 0; }
+    .fade-up-3 { animation-delay: 0.3s; opacity: 0; }
+    .fade-up-4 { animation-delay: 0.45s; opacity: 0; }
+    .fade-up-5 { animation-delay: 0.6s; opacity: 0; }
+
+    /* Comparison card */
+    .vs-card {
+      border: 2px solid #000;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .vs-card-header {
+      padding: 16px 24px;
+      font-family: 'Arial', sans-serif;
+      font-weight: bold;
+      font-size: 17px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Highlight box */
+    .highlight-box {
+      border-left: 4px solid #67DAD5;
+      padding: 16px 20px;
+      background-color: #ffffff !important;
+      border-radius: 0 12px 12px 0;
+    }
+
+    /* Back button */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Arial', sans-serif;
+      font-weight: bold;
+      font-size: 14px;
+      color: #000;
+      text-decoration: none;
+      padding: 8px 20px;
+      border: 2px solid #000;
+      border-radius: 999px;
+      transition: all 0.2s;
+      background-color: #F2F0EF !important;
+    }
+    .back-btn:hover {
+      background-color: #000 !important;
+      color: #fff;
+    }
+
+    /* Children inside white cards must be transparent */
+    .keep-white * {
+      background-color: transparent !important;
+    }
+    /* Except elements that explicitly need their own bg */
+    .keep-white .keep-cyan { background-color: #67DAD5 !important; }
+    .keep-white .keep-black { background-color: #000000 !important; }
+    .keep-white .keep-white { background-color: #ffffff !important; }
+
+    /* Preserve specific backgrounds */
+    .keep-white { background-color: #ffffff !important; }
+    .keep-cyan  { background-color: #67DAD5 !important; }
+    .keep-black { background-color: #000000 !important; }
+
+    /* All descendants of white cards inherit transparent bg */
+    .keep-white * { background-color: transparent !important; }
+    .keep-white .keep-cyan { background-color: #67DAD5 !important; }
+    .keep-white .keep-black { background-color: #000000 !important; }
+    .keep-white .keep-white { background-color: #ffffff !important; }
+    .keep-transparent { background-color: transparent !important; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header style="background-color: #F2F0EF !important; border-bottom: 2px solid #000;" class="fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between" style="background-color: transparent !important;">
+      <a href="index.html" style="background-color: transparent !important;">
+        <img src="images/logo.jpg" alt="DFormPro Digital" class="h-12 w-auto object-contain">
+      </a>
+      <a href="index.html" class="back-btn">
+        <span class="material-symbols-outlined" style="font-size:18px; background-color: transparent !important;">arrow_back</span>
+        Retour
+      </a>
+    </div>
+  </header>
+
+  <main style="padding-top: 80px; background-color: #F2F0EF !important;">
+
+    <!-- ══════════════════════════════════════════
+         HERO SECTION
+    ══════════════════════════════════════════ -->
+    <section class="relative overflow-hidden" style="background-color: #F2F0EF !important;">
+      <!-- Decorations -->
+      <img src="images/Angle Gauche .png" class="bg-deco" style="top:0;left:0;width:320px;opacity:0.45;" alt="">
+      <img src="images/Coté droit.png"    class="bg-deco" style="top:0;right:0;width:280px;opacity:0.35;" alt="">
+
+      <div class="max-w-4xl mx-auto px-6 py-20 text-center relative z-10" style="background-color: transparent !important;">
+
+        <!-- Breadcrumb badge -->
+        <div class="flex justify-center mb-6 fade-up" style="background-color: transparent !important;">
+          <span class="badge" style="border-color:#67DAD5; color:#67DAD5; background-color: #F2F0EF !important;">
+            <span class="material-symbols-outlined" style="font-size:16px; background-color: transparent !important;">timer</span>
+            Avantage stratégique n°1
+          </span>
+        </div>
+
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight fade-up fade-up-2">
+          Réduction de l'impact planning<br />
+          <span class="text-cyan">et préservation des heures facturables</span>
+        </h1>
+
+        <p class="text-xl md:text-2xl font-bold fade-up fade-up-3" style="color: #74888F; font-family: 'Arial', sans-serif; font-style: italic; font-weight: bold; background-color: transparent !important;">
+          Former sans désorganiser.<br />Former sans perdre de chiffre d'affaires.
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         PROBLEM STATEMENT
+    ══════════════════════════════════════════ -->
+    <section class="relative overflow-hidden py-16" style="background-color: #F2F0EF !important;">
+      <img src="images/grand coté gauche.png" class="bg-deco" style="top:0;left:0;width:300px;opacity:0.35;" alt="">
+
+      <div class="max-w-6xl mx-auto px-6 relative z-10" style="background-color: transparent !important;">
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start" style="background-color: transparent !important;">
+
+          <!-- Left: Problem narrative -->
+          <div style="background-color: transparent !important;">
+            <div class="highlight-box mb-8 fade-up">
+              <p class="text-lg font-bold" style="font-family: 'Arial', sans-serif; color:#000;">
+                Dans le secteur des services à la personne, le planning est une mécanique fine.
+              </p>
+            </div>
+
+            <p class="text-base mb-6 font-bold" style="color:#74888F; font-family: 'Nunito', sans-serif; font-weight: 700; background-color: transparent !important;">
+              Chaque absence simultanée impacte :
+            </p>
+
+            <div class="space-y-3 mb-8 fade-up fade-up-2" style="background-color: transparent !important;">
+              <div class="check-item rounded-xl px-4 py-3" style="border: 2px solid #e5e7eb;">
+                <div class="check-icon" style="background-color: #000 !important; color:#fff;">→</div>
+                <span style="color:#000; font-family: 'Nunito', sans-serif;">l'organisation des tournées</span>
+              </div>
+              <div class="check-item rounded-xl px-4 py-3" style="border: 2px solid #e5e7eb;">
+                <div class="check-icon" style="background-color: #000 !important; color:#fff;">→</div>
+                <span style="color:#000; font-family: 'Nunito', sans-serif;">la continuité auprès des bénéficiaires</span>
+              </div>
+              <div class="check-item rounded-xl px-4 py-3" style="border: 2px solid #e5e7eb;">
+                <div class="check-icon" style="background-color: #000 !important; color:#fff;">→</div>
+                <span style="color:#000; font-family: 'Nunito', sans-serif;">la charge administrative</span>
+              </div>
+              <div class="check-item rounded-xl px-4 py-3" style="border: 2px solid #e5e7eb; border-color: #67DAD5 !important;">
+                <div class="check-icon" style="background-color: #67DAD5 !important; color:#fff;">→</div>
+                <span style="color:#000; font-family: 'Nunito', sans-serif; font-weight:700;">et directement… les heures facturables.</span>
+              </div>
+            </div>
+
+            <p class="text-base mb-4" style="color:#74888F; font-family: 'Nunito', sans-serif; font-weight:400; background-color: transparent !important;">
+              Une formation présentielle mobilise collectivement plusieurs intervenantes pendant une ou plusieurs journées complètes.
+            </p>
+
+            <p class="text-base font-bold mb-3" style="color:#74888F; font-family: 'Nunito', sans-serif; background-color: transparent !important;">
+              Ces heures deviennent alors :
+            </p>
+            <div class="space-y-2 fade-up fade-up-3" style="background-color: transparent !important;">
+              <div class="flex items-center gap-3 rounded-full px-5 py-3" style="border:2px solid #e5e7eb;">
+                <span class="material-symbols-outlined" style="color:#74888F; font-size:18px; background-color:transparent !important;">block</span>
+                <span style="color:#74888F; font-family:'Nunito',sans-serif; font-weight:400;">des heures non réalisées</span>
+              </div>
+              <div class="flex items-center gap-3 rounded-full px-5 py-3" style="border:2px solid #e5e7eb;">
+                <span class="material-symbols-outlined" style="color:#74888F; font-size:18px; background-color:transparent !important;">person_off</span>
+                <span style="color:#74888F; font-family:'Nunito',sans-serif; font-weight:400;">des heures parfois non remplacées</span>
+              </div>
+              <div class="flex items-center gap-3 rounded-full px-5 py-3" style="border:2px solid #ff4444;">
+                <span class="material-symbols-outlined" style="color:#ff4444; font-size:18px; background-color:transparent !important;">payments</span>
+                <span style="color:#ff4444; font-family:'Nunito',sans-serif; font-weight:700;">des heures potentiellement non facturées</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Visual stat card -->
+          <div style="background-color: transparent !important;">
+            <div class="keep-white rounded-2xl p-8 shadow-neo" style="border: 2px solid #000;">
+              <div class="flex items-center gap-3 mb-6 pb-4" style="border-bottom: 2px solid #67DAD5; background-color: transparent !important;">
+                <span class="material-symbols-outlined text-3xl" style="color:#67DAD5; background-color:transparent !important;">query_stats</span>
+                <h3 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:18px; color:#000;">Le coût caché de la formation présentielle</h3>
+              </div>
+              <div class="space-y-6" style="background-color: transparent !important;">
+                <!-- Stat 1 -->
+                <div style="background-color: transparent !important;">
+                  <div class="flex justify-between items-center mb-2" style="background-color: transparent !important;">
+                    <span style="font-family:'Nunito',sans-serif; font-size:13px; color:#74888F; font-weight:400;">Heures immobilisées (10 intervenantes × 14h)</span>
+                    <span class="big-stat" style="font-size:22px; color:#000;">140 h</span>
+                  </div>
+                  <div style="height:8px; background:#e5e7eb; border-radius:999px; background-color:#e5e7eb !important;">
+                    <div style="height:8px; width:100%; background-color:#ff4444 !important; border-radius:999px;"></div>
+                  </div>
+                </div>
+                <!-- Stat 2 -->
+                <div style="background-color: transparent !important;">
+                  <div class="flex justify-between items-center mb-2" style="background-color: transparent !important;">
+                    <span style="font-family:'Nunito',sans-serif; font-size:13px; color:#74888F; font-weight:400;">CA potentiellement non facturé (140h × 24€)</span>
+                    <span class="big-stat" style="font-size:22px; color:#ff4444;">3 360 €</span>
+                  </div>
+                  <div style="height:8px; background:#e5e7eb; border-radius:999px; background-color:#e5e7eb !important;">
+                    <div style="height:8px; width:100%; background-color:#ff4444 !important; border-radius:999px;"></div>
+                  </div>
+                </div>
+                <div style="height:1px; background-color:#e5e7eb !important;"></div>
+                <!-- Stat 3 Digital -->
+                <div style="background-color: transparent !important;">
+                  <div class="flex justify-between items-center mb-2" style="background-color: transparent !important;">
+                    <span style="font-family:'Nunito',sans-serif; font-size:13px; color:#74888F; font-weight:400;">Formation digitale (10 × 2h)</span>
+                    <span class="big-stat" style="font-size:22px; color:#67DAD5;">20 h</span>
+                  </div>
+                  <div style="height:8px; background:#e5e7eb; border-radius:999px; background-color:#e5e7eb !important;">
+                    <div style="height:8px; width:14%; background-color:#67DAD5 !important; border-radius:999px;"></div>
+                  </div>
+                </div>
+                <!-- Stat 4 -->
+                <div style="background-color: transparent !important;">
+                  <div class="flex justify-between items-center mb-2" style="background-color: transparent !important;">
+                    <span style="font-family:'Nunito',sans-serif; font-size:13px; color:#74888F; font-weight:400;">Impact potentiel digital (20h × 24€)</span>
+                    <span class="big-stat" style="font-size:22px; color:#67DAD5;">480 €</span>
+                  </div>
+                  <div style="height:8px; background:#e5e7eb; border-radius:999px; background-color:#e5e7eb !important;">
+                    <div style="height:8px; width:14%; background-color:#67DAD5 !important; border-radius:999px;"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         EXEMPLE CONCRET – COMPARAISON
+    ══════════════════════════════════════════ -->
+    <section class="py-20 relative overflow-hidden" style="background-color: #F2F0EF !important;">
+      <img src="images/pied de page.png" class="bg-deco" style="bottom:0;right:0;width:400px;opacity:0.3;" alt="">
+
+      <div class="max-w-6xl mx-auto px-6 relative z-10" style="background-color: transparent !important;">
+
+        <div class="text-center mb-14" style="background-color: transparent !important;">
+          <div class="flex justify-center mb-4" style="background-color: transparent !important;">
+            <span class="badge" style="border-color:#000; color:#000; background-color: #F2F0EF !important;">
+              <span class="material-symbols-outlined" style="font-size:16px; background-color:transparent !important;">bar_chart</span>
+              Exemple concret — 10 intervenantes
+            </span>
+          </div>
+          <h2 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:32px; color:#000;">
+            Présentiel vs Digital : la différence en chiffres
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16" style="background-color: transparent !important;">
+
+          <!-- Présentiel -->
+          <div class="vs-card shadow-neo-black fade-up" style="background-color: transparent !important;">
+            <div class="vs-card-header keep-white" style="border-bottom: 2px solid #000;">
+              <span class="material-symbols-outlined" style="font-size:22px; color:#74888F; background-color:transparent !important;">apartment</span>
+              Formation présentielle (2 jours)
+            </div>
+            <div class="keep-white p-6 space-y-4" style="background-color: #ffffff !important;">
+              <div class="flex items-start gap-3 pb-4" style="border-bottom:1px solid #e5e7eb; background-color:transparent !important;">
+                <span class="material-symbols-outlined" style="font-size:20px; color:#74888F; background-color:transparent !important;">schedule</span>
+                <div style="background-color:transparent !important;">
+                  <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:14px; color:#000;">14 heures par intervenante</p>
+                  <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:13px; color:#74888F;">= 140 heures d'intervention immobilisées</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 pb-4" style="border-bottom:1px solid #e5e7eb; background-color:transparent !important;">
+                <span class="material-symbols-outlined" style="font-size:20px; color:#74888F; background-color:transparent !important;">euro</span>
+                <div style="background-color:transparent !important;">
+                  <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:13px; color:#74888F;">Si l'heure d'intervention est facturée en moyenne 24 € :</p>
+                  <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:14px; color:#000;">140 heures × 24 € =</p>
+                </div>
+              </div>
+              <div class="rounded-xl p-4 text-center" style="background-color: #fff3f3 !important; border: 2px solid #ff4444;">
+                <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:28px; color:#ff4444;">3 360 €</p>
+                <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:13px; color:#74888F;">de chiffre d'affaires non réalisé</p>
+                <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:11px; color:#74888F; margin-top:4px;">Ce montant s'ajoute au coût pédagogique et au coût salarial.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Digitale -->
+          <div class="vs-card fade-up fade-up-2" style="border-color: #67DAD5 !important; box-shadow: 6px 6px 0px 0px #67DAD5;">
+            <div class="vs-card-header" style="border-bottom: 2px solid #67DAD5; background-color: #67DAD5 !important; color:#fff;">
+              <span class="material-symbols-outlined" style="font-size:22px; background-color:transparent !important;">devices</span>
+              Avec la formation digitale
+            </div>
+            <div class="keep-white p-6 space-y-4" style="background-color: #ffffff !important;">
+              <div class="flex items-start gap-3 pb-4" style="border-bottom:1px solid #e5e7eb; background-color:transparent !important;">
+                <span class="material-symbols-outlined" style="font-size:20px; color:#67DAD5; background-color:transparent !important;">schedule</span>
+                <div style="background-color:transparent !important;">
+                  <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:14px; color:#000;">2 heures par intervenante</p>
+                  <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:13px; color:#74888F;">= 20 heures mobilisées seulement</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 pb-4" style="border-bottom:1px solid #e5e7eb; background-color:transparent !important;">
+                <span class="material-symbols-outlined" style="font-size:20px; color:#67DAD5; background-color:transparent !important;">euro</span>
+                <div style="background-color:transparent !important;">
+                  <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:13px; color:#74888F;">20 heures × 24 € =</p>
+                  <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:14px; color:#000;">480 € d'impact potentiel seulement</p>
+                </div>
+              </div>
+              <div class="rounded-xl p-4" style="background-color: rgba(103,218,213,0.08) !important; border: 2px solid #67DAD5;">
+                <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#000; margin-bottom:10px;">Soit :</p>
+                <div class="space-y-2" style="background-color:transparent !important;">
+                  <div class="flex items-center gap-2" style="background-color:transparent !important;">
+                    <span style="color:#67DAD5; font-size:18px;">✔</span>
+                    <span style="font-family:'Nunito',sans-serif; font-weight:700; font-size:14px; color:#000;">120 heures terrain préservées</span>
+                  </div>
+                  <div class="flex items-center gap-2" style="background-color:transparent !important;">
+                    <span style="color:#67DAD5; font-size:18px;">✔</span>
+                    <span style="font-family:'Nunito',sans-serif; font-weight:700; font-size:14px; color:#000;">Environ 2 880 € de chiffre d'affaires préservé</span>
+                  </div>
+                  <div class="flex items-center gap-2" style="background-color:transparent !important;">
+                    <span style="color:#67DAD5; font-size:18px;">✔</span>
+                    <span style="font-family:'Nunito',sans-serif; font-weight:700; font-size:14px; color:#000;">Une continuité de service maintenue</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Big highlight: 2 880 € -->
+        <div class="keep-white rounded-2xl p-8 md:p-12 text-center shadow-neo fade-up fade-up-3" style="border: 2px solid #000;">
+          <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:15px; color:#74888F; margin-bottom:8px;">Économie potentielle sur 10 intervenantes</p>
+          <p class="big-stat" style="font-size:64px; color:#67DAD5; line-height:1;">2 880 €</p>
+          <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:18px; color:#000; margin-top:8px;">de chiffre d'affaires préservé</p>
+          <div class="section-divider" style="background-color:transparent !important; max-width:400px; margin:24px auto 0;">
+            <span></span>
+            <span style="font-family:'Nunito',sans-serif; font-size:13px; color:#74888F; font-weight:400; white-space:nowrap;">par rapport à une formation présentielle</span>
+            <span></span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         IMPACT ORGANISATIONNEL
+    ══════════════════════════════════════════ -->
+    <section class="py-20 relative overflow-hidden" style="background-color: #F2F0EF !important;">
+      <img src="images/grand coté gauche.png" class="bg-deco" style="top:0;left:0;width:280px;opacity:0.35;" alt="">
+      <img src="images/bas droit grand.png" class="bg-deco" style="bottom:0;right:0;width:360px;opacity:0.25;" alt="">
+
+      <div class="max-w-6xl mx-auto px-6 relative z-10" style="background-color: transparent !important;">
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start" style="background-color: transparent !important;">
+
+          <!-- Left -->
+          <div style="background-color: transparent !important;">
+            <h2 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:28px; color:#000; margin-bottom:8px;">Impact organisationnel réduit</h2>
+            <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:15px; color:#74888F; margin-bottom:24px;">La formation digitale permet :</p>
+
+            <!-- Timeline -->
+            <div class="space-y-5" style="background-color: transparent !important;">
+              <div class="timeline-step fade-up">
+                <div class="step-dot">1</div>
+                <div class="rounded-xl p-4 flex-1" style="border: 2px solid #e5e7eb;">
+                  <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#000;">d'éviter l'arrêt collectif d'activité</p>
+                </div>
+              </div>
+              <div class="timeline-step fade-up fade-up-2">
+                <div class="step-dot">2</div>
+                <div class="rounded-xl p-4 flex-1" style="border: 2px solid #e5e7eb;">
+                  <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#000;">de répartir les connexions dans le temps</p>
+                </div>
+              </div>
+              <div class="timeline-step fade-up fade-up-3">
+                <div class="step-dot">3</div>
+                <div class="rounded-xl p-4 flex-1" style="border: 2px solid #e5e7eb;">
+                  <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#000;">de former sans bloquer des journées complètes</p>
+                </div>
+              </div>
+              <div class="timeline-step fade-up fade-up-4">
+                <div class="step-dot">4</div>
+                <div class="rounded-xl p-4 flex-1" style="border: 2px solid #67DAD5 !important;">
+                  <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#000;">d'intégrer la montée en compétences dans la réalité du terrain</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="keep-white rounded-2xl p-6 mt-8 shadow-neo" style="border: 2px solid #000;">
+              <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:17px; color:#000; margin-bottom:4px;">La formation s'adapte au planning.</p>
+              <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:17px; color:#67DAD5;">Le planning ne subit plus la formation.</p>
+            </div>
+          </div>
+
+          <!-- Right: Avec DFormPro -->
+          <div style="background-color: transparent !important;">
+            <div class="keep-cyan rounded-2xl p-8 md:p-10" style="border: 2px solid #000; box-shadow: 6px 6px 0px 0px #000;">
+              <h3 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:22px; color:#000; margin-bottom:24px; padding-bottom:16px; border-bottom: 2px solid #000;">
+                Avec DFORMPRO DIGITAL :
+              </h3>
+              <div class="space-y-4" style="background-color: transparent !important;">
+                <div class="check-item" style="background-color:transparent !important;">
+                  <div class="check-icon keep-black" style="color:#fff;">✔</div>
+                  <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#000;">Vous préservez vos heures d'intervention</span>
+                </div>
+                <div class="check-item" style="background-color:transparent !important;">
+                  <div class="check-icon keep-black" style="color:#fff;">✔</div>
+                  <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#000;">Vous limitez les pertes de chiffre d'affaires</span>
+                </div>
+                <div class="check-item" style="background-color:transparent !important;">
+                  <div class="check-icon keep-black" style="color:#fff;">✔</div>
+                  <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#000;">Vous sécurisez votre organisation</span>
+                </div>
+                <div class="check-item" style="background-color:transparent !important;">
+                  <div class="check-icon keep-black" style="color:#fff;">✔</div>
+                  <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#000;">Vous développez les compétences sans fragiliser votre modèle économique</span>
+                </div>
+              </div>
+              <div class="mt-8 pt-6" style="border-top: 2px solid rgba(0,0,0,0.2); background-color:transparent !important;">
+                <p style="font-family:'Arial',sans-serif; font-weight:bold; font-style:italic; font-size:16px; color:#000;">
+                  Former devient un investissement maîtrisé,<br />non une perturbation opérationnelle.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         CTA SECTION
+    ══════════════════════════════════════════ -->
+    <section class="px-6 py-16" style="background-color: #F2F0EF !important;">
+      <div class="max-w-5xl mx-auto rounded-[40px] py-16 px-8 md:px-12 text-center relative overflow-hidden keep-cyan" style="border: 2px solid #000; box-shadow: 8px 8px 0px 0px #000;">
+        <!-- Decorative circles -->
+        <div class="absolute top-0 right-0 w-56 h-56 rounded-full translate-x-1/2 -translate-y-1/2" style="background-color: rgba(255,255,255,0.15) !important;"></div>
+        <div class="absolute bottom-0 left-0 w-40 h-40 rounded-full -translate-x-1/3 translate-y-1/3" style="background-color: rgba(255,255,255,0.15) !important;"></div>
+        <div class="relative z-10" style="background-color:transparent !important;">
+          <h2 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:32px; color:#000; margin-bottom:16px;">
+            Prêt à former sans perdre de CA ?
+          </h2>
+          <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:16px; color:rgba(0,0,0,0.75); margin-bottom:32px; background-color:transparent !important;">
+            Demandez votre devis personnalisé sous 48h et découvrez combien vous pouvez préserver.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4" style="background-color:transparent !important;">
+            <a href="index.html" class="inline-flex items-center gap-2 font-bold py-4 px-10 rounded-[20px] text-lg transition-all" style="background-color: #000 !important; color:#fff; font-family:'Nunito',sans-serif;">
+              Demander un devis
+              <span class="material-symbols-outlined" style="background-color:transparent !important;">arrow_forward</span>
+            </a>
+            <a href="index.html" class="inline-flex items-center gap-2 font-bold py-4 px-10 rounded-[20px] text-lg transition-all" style="background-color: #F2F0EF !important; color:#000; border: 2px solid #000; font-family:'Nunito',sans-serif;">
+              Voir toutes nos formations
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="py-10 px-6 keep-black" style="border-top: 2px solid rgba(255,255,255,0.1);">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4" style="background-color:transparent !important;">
+      <a href="index.html" class="inline-block rounded-xl p-2" style="background-color:#fff !important;">
+        <img src="images/logo.jpg" alt="DFormPro Digital" class="h-8 w-auto object-contain">
+      </a>
+      <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:13px; color:#fff; background-color:transparent !important;">
+        © 2024 DFormPro Digital. Tous droits réservés.
+      </p>
+      <a href="index.html" style="color:#67DAD5; font-family:'Arial',sans-serif; font-weight:bold; font-size:13px; background-color:transparent !important;">
+        ← Retour à l'accueil
+      </a>
+    </div>
+  </footer>
+
+</body>
+</html>
