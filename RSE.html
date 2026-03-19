@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Engagement RSE & décarbonation – DFormPro Digital</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap');
+
+    *, html, body { background-color: #F2F0EF; }
+
+    body {
+      font-family: 'Arial Rounded MT Bold', 'Nunito', sans-serif;
+      font-weight: 700;
+      color: #000;
+      background-color: #F2F0EF !important;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Arial', sans-serif !important;
+      font-weight: bold !important;
+    }
+    h1 { font-style: italic !important; }
+
+    .text-cyan  { color: #67DAD5; }
+    .text-green { color: #2E7D32; }
+    .keep-white { background-color: #ffffff !important; }
+    .keep-cyan  { background-color: #67DAD5 !important; }
+    .keep-black { background-color: #000000 !important; }
+
+    /* All descendants of white cards inherit transparent bg */
+    .keep-white * { background-color: transparent !important; }
+    .keep-white .keep-cyan { background-color: #67DAD5 !important; }
+    .keep-white .keep-black { background-color: #000000 !important; }
+    .keep-white .keep-white { background-color: #ffffff !important; }
+    .keep-green { background-color: #2E7D32 !important; }
+
+    .shadow-neo       { box-shadow: 6px 6px 0px 0px #67DAD5; }
+    .shadow-neo-black { box-shadow: 6px 6px 0px 0px #000000; }
+    .shadow-neo-green { box-shadow: 6px 6px 0px 0px #2E7D32; }
+
+    .bg-deco { pointer-events: none; position: absolute; z-index: 0; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      border: 2px solid;
+    }
+
+    .highlight-box {
+      border-left: 4px solid #67DAD5;
+      padding: 16px 20px;
+      background-color: #ffffff !important;
+      border-radius: 0 12px 12px 0;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Arial', sans-serif;
+      font-weight: bold;
+      font-size: 14px;
+      color: #000;
+      text-decoration: none;
+      padding: 8px 20px;
+      border: 2px solid #000;
+      border-radius: 999px;
+      transition: all 0.2s;
+      background-color: #F2F0EF !important;
+    }
+    .back-btn:hover {
+      background-color: #000 !important;
+      color: #fff;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up  { animation: fadeUp 0.6s ease forwards; }
+    .delay-1  { animation-delay: 0.15s; opacity: 0; }
+    .delay-2  { animation-delay: 0.30s; opacity: 0; }
+    .delay-3  { animation-delay: 0.45s; opacity: 0; }
+
+    /* Thermometer / CO2 bar */
+    @keyframes growBar {
+      from { height: 0; }
+    }
+    .bar-grow { animation: growBar 1.2s ease forwards; }
+
+    @keyframes growBarH {
+      from { width: 0; }
+    }
+    .bar-grow-h { animation: growBarH 1s ease forwards; }
+
+    .section-divider {
+      display: flex; align-items: center; gap: 16px; margin: 32px 0;
+    }
+    .section-divider::before,
+    .section-divider::after {
+      content: ''; flex: 1; height: 2px; background: #67DAD5;
+    }
+
+    /* leaf icon green tint */
+    .leaf-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background-color: rgba(46,125,50,0.12) !important;
+      border: 2px solid #2E7D32;
+    }
+
+    /* co2 counter display */
+    .co2-display {
+      font-family: 'Arial', sans-serif;
+      font-weight: bold;
+      font-size: 56px;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header style="background-color:#F2F0EF !important; border-bottom:2px solid #000;" class="fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between" style="background-color:transparent !important;">
+      <a href="index.html" style="background-color:transparent !important;">
+        <img src="images/logo.jpg" alt="DFormPro Digital" class="h-12 w-auto object-contain">
+      </a>
+      <a href="index.html" class="back-btn">
+        <span class="material-symbols-outlined" style="font-size:18px; background-color:transparent !important;">arrow_back</span>
+        Retour
+      </a>
+    </div>
+  </header>
+
+  <main style="padding-top:80px; background-color:#F2F0EF !important;">
+
+    <!-- ══════════════════════════════════════════
+         HERO
+    ══════════════════════════════════════════ -->
+    <section class="relative overflow-hidden" style="background-color:#F2F0EF !important;">
+      <img src="images/Angle Gauche .png" class="bg-deco" style="top:0;left:0;width:320px;opacity:0.45;" alt="">
+      <img src="images/Coté droit.png"    class="bg-deco" style="top:0;right:0;width:280px;opacity:0.35;" alt="">
+
+      <div class="max-w-4xl mx-auto px-6 py-20 text-center relative z-10" style="background-color:transparent !important;">
+
+        <div class="flex justify-center mb-6 fade-up" style="background-color:transparent !important;">
+          <span class="badge" style="border-color:#67DAD5; color:#67DAD5; background-color:#F2F0EF !important;">
+            <span class="material-symbols-outlined" style="font-size:16px; background-color:transparent !important;">energy_savings_leaf</span>
+            Avantage stratégique n°4
+          </span>
+        </div>
+
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black mb-6 leading-tight fade-up delay-1">
+          Engagement RSE<br />
+          <span class="text-cyan">&amp; décarbonation</span>
+        </h1>
+
+        <p class="text-xl md:text-2xl font-bold fade-up delay-2" style="color:#74888F; font-family:'Arial',sans-serif; font-style:italic; background-color:transparent !important;">
+          Former en digital, c'est intégrer la montée en compétences<br />dans une démarche responsable et durable.
+        </p>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         4 IMPACTS RSE
+    ══════════════════════════════════════════ -->
+    <section class="py-16 relative overflow-hidden" style="background-color:#F2F0EF !important;">
+      <img src="images/grand coté gauche.png" class="bg-deco" style="top:0;left:0;width:280px;opacity:0.3;" alt="">
+
+      <div class="max-w-6xl mx-auto px-6 relative z-10" style="background-color:transparent !important;">
+
+        <div class="text-center mb-14" style="background-color:transparent !important;">
+          <h2 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:32px; color:#000; margin-bottom:8px;">
+            La digitalisation de la formation permet…
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-14" style="background-color:transparent !important;">
+
+          <!-- Impact 1 -->
+          <div class="keep-white rounded-2xl p-6 text-center fade-up" style="border:2px solid #e5e7eb;">
+            <div class="leaf-icon mx-auto mb-4">
+              <span class="material-symbols-outlined" style="font-size:24px; color:#2E7D32; background-color:transparent !important;">directions_car_off</span>
+            </div>
+            <h3 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#000; margin-bottom:8px;">Suppression des déplacements inter-sites</h3>
+            <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:12px; color:#74888F;">Chaque intervenant reste sur son secteur.</p>
+          </div>
+
+          <!-- Impact 2 -->
+          <div class="keep-white rounded-2xl p-6 text-center fade-up delay-1" style="border:2px solid #e5e7eb;">
+            <div class="leaf-icon mx-auto mb-4">
+              <span class="material-symbols-outlined" style="font-size:24px; color:#2E7D32; background-color:transparent !important;">route</span>
+            </div>
+            <h3 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#000; margin-bottom:8px;">Réduction des kilomètres parcourus</h3>
+            <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:12px; color:#74888F;">Moins de trajets = moins d'émissions CO₂.</p>
+          </div>
+
+          <!-- Impact 3 -->
+          <div class="keep-white rounded-2xl p-6 text-center fade-up delay-2" style="border:2px solid #e5e7eb;">
+            <div class="leaf-icon mx-auto mb-4">
+              <span class="material-symbols-outlined" style="font-size:24px; color:#2E7D32; background-color:transparent !important;">description</span>
+            </div>
+            <h3 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#000; margin-bottom:8px;">Diminution des impressions papier</h3>
+            <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:12px; color:#74888F;">Supports 100 % numériques, zéro impression.</p>
+          </div>
+
+          <!-- Impact 4 -->
+          <div class="keep-white rounded-2xl p-6 text-center fade-up delay-3" style="border:2px solid #e5e7eb;">
+            <div class="leaf-icon mx-auto mb-4">
+              <span class="material-symbols-outlined" style="font-size:24px; color:#2E7D32; background-color:transparent !important;">co2</span>
+            </div>
+            <h3 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#000; margin-bottom:8px;">Baisse de l'empreinte carbone liée à la formation</h3>
+            <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:12px; color:#74888F;">Un indicateur RSE mesurable et valorisable.</p>
+          </div>
+
+        </div>
+
+        <!-- Citation highlight -->
+        <div class="highlight-box max-w-3xl mx-auto fade-up delay-2">
+          <p class="text-lg font-bold" style="font-family:'Arial',sans-serif; color:#000;">
+            Former en digital, c'est intégrer la montée en compétences dans une démarche responsable et durable.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         CALCULATEUR CO₂
+    ══════════════════════════════════════════ -->
+    <section class="py-16 relative overflow-hidden" style="background-color:#F2F0EF !important;">
+      <img src="images/2 traits.png" class="bg-deco" style="top:10%;left:0;width:180px;opacity:0.4;" alt="">
+      <img src="images/pied de page.png" class="bg-deco" style="bottom:0;right:0;width:400px;opacity:0.3;" alt="">
+
+      <div class="max-w-6xl mx-auto px-6 relative z-10" style="background-color:transparent !important;">
+
+        <div class="text-center mb-14" style="background-color:transparent !important;">
+          <div class="flex justify-center mb-4" style="background-color:transparent !important;">
+            <span class="badge" style="border-color:#2E7D32; color:#2E7D32; background-color:#F2F0EF !important;">
+              <span class="material-symbols-outlined" style="font-size:16px; background-color:transparent !important;">calculate</span>
+              Exemple concret — 10 intervenants
+            </span>
+          </div>
+          <h2 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:32px; color:#000;">
+            La formation digitale : un levier concret de décarbonation
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start" style="background-color:transparent !important;">
+
+          <!-- Left: hypothèses -->
+          <div style="background-color:transparent !important;">
+            <h3 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:18px; color:#000; margin-bottom:20px;">Prenons un exemple simple :</h3>
+
+            <div class="space-y-3 mb-8" style="background-color:transparent !important;">
+              <div class="keep-white rounded-xl px-5 py-4 flex items-center justify-between" style="border:2px solid #e5e7eb;">
+                <div class="flex items-center gap-3" style="background-color:transparent !important;">
+                  <span class="material-symbols-outlined" style="font-size:20px; color:#67DAD5; background-color:transparent !important;">groups</span>
+                  <span style="font-family:'Nunito',sans-serif; font-weight:400; font-size:14px; color:#74888F;">Intervenants</span>
+                </div>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:18px; color:#000;">10</span>
+              </div>
+              <div class="keep-white rounded-xl px-5 py-4 flex items-center justify-between" style="border:2px solid #e5e7eb;">
+                <div class="flex items-center gap-3" style="background-color:transparent !important;">
+                  <span class="material-symbols-outlined" style="font-size:20px; color:#67DAD5; background-color:transparent !important;">calendar_today</span>
+                  <span style="font-family:'Nunito',sans-serif; font-weight:400; font-size:14px; color:#74888F;">Journées de formation présentielle</span>
+                </div>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:18px; color:#000;">2</span>
+              </div>
+              <div class="keep-white rounded-xl px-5 py-4 flex items-center justify-between" style="border:2px solid #e5e7eb;">
+                <div class="flex items-center gap-3" style="background-color:transparent !important;">
+                  <span class="material-symbols-outlined" style="font-size:20px; color:#67DAD5; background-color:transparent !important;">straighten</span>
+                  <span style="font-family:'Nunito',sans-serif; font-weight:400; font-size:14px; color:#74888F;">Distance aller-retour moyenne</span>
+                </div>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:18px; color:#000;">20 km</span>
+              </div>
+              <div class="keep-white rounded-xl px-5 py-4 flex items-center justify-between" style="border:2px solid #e5e7eb;">
+                <div class="flex items-center gap-3" style="background-color:transparent !important;">
+                  <span class="material-symbols-outlined" style="font-size:20px; color:#67DAD5; background-color:transparent !important;">cloud</span>
+                  <span style="font-family:'Nunito',sans-serif; font-weight:400; font-size:14px; color:#74888F;">Émissions véhicule thermique</span>
+                </div>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:18px; color:#000;">120 g CO₂/km</span>
+              </div>
+            </div>
+
+            <!-- Calcul étapes -->
+            <div class="keep-white rounded-2xl p-6 shadow-neo" style="border:2px solid #000;">
+              <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:14px; color:#74888F; margin-bottom:16px; text-transform:uppercase; letter-spacing:1px;">Calcul</p>
+              <div class="space-y-4" style="background-color:transparent !important;">
+                <div class="flex items-start gap-3" style="background-color:transparent !important;">
+                  <span style="width:24px; height:24px; border-radius:50%; background-color:#000 !important; color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold; flex-shrink:0; margin-top:1px;">1</span>
+                  <div style="background-color:transparent !important;">
+                    <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:13px; color:#74888F;">10 intervenants × 20 km × 2 journées</p>
+                    <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#000;">= <span class="text-cyan">400 km cumulés</span></p>
+                  </div>
+                </div>
+                <div style="height:1px; background-color:#e5e7eb !important;"></div>
+                <div class="flex items-start gap-3" style="background-color:transparent !important;">
+                  <span style="width:24px; height:24px; border-radius:50%; background-color:#000 !important; color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold; flex-shrink:0; margin-top:1px;">2</span>
+                  <div style="background-color:transparent !important;">
+                    <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:13px; color:#74888F;">400 km × 120 g CO₂/km</p>
+                    <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#000;">= <span class="text-cyan">48 kg de CO₂</span> par journée de formation</p>
+                  </div>
+                </div>
+                <div style="height:1px; background-color:#e5e7eb !important;"></div>
+                <div class="flex items-start gap-3" style="background-color:transparent !important;">
+                  <span style="width:24px; height:24px; border-radius:50%; background-color:#2E7D32 !important; color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:bold; flex-shrink:0; margin-top:1px;">3</span>
+                  <div style="background-color:transparent !important;">
+                    <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:13px; color:#74888F;">Sur 10 sessions annuelles</p>
+                    <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#2E7D32;">= 480 kg de CO₂ évités</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: visuel CO₂ -->
+          <div style="background-color:transparent !important;">
+
+            <!-- Big stat CO2 évité -->
+            <div class="keep-white rounded-2xl p-8 text-center mb-6 shadow-neo-green" style="border:2px solid #2E7D32;">
+              <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:14px; color:#74888F; margin-bottom:8px;">CO₂ évité sur 10 sessions annuelles</p>
+              <p class="co2-display" style="color:#2E7D32;">480 kg</p>
+              <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:16px; color:#000; margin-top:4px;">de CO₂ évités</p>
+
+              <!-- Barre comparative -->
+              <div class="mt-8 space-y-4 text-left" style="background-color:transparent !important;">
+                <div style="background-color:transparent !important;">
+                  <div class="flex justify-between mb-2" style="background-color:transparent !important;">
+                    <span style="font-family:'Nunito',sans-serif; font-weight:700; font-size:12px; color:#74888F;">Formation présentielle (10 sessions)</span>
+                    <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:12px; color:#ff4444;">480 kg CO₂</span>
+                  </div>
+                  <div style="height:12px; background-color:#e5e7eb !important; border-radius:999px; overflow:hidden;">
+                    <div class="bar-grow-h" style="height:12px; width:100%; background-color:#ff4444 !important; border-radius:999px;"></div>
+                  </div>
+                </div>
+                <div style="background-color:transparent !important;">
+                  <div class="flex justify-between mb-2" style="background-color:transparent !important;">
+                    <span style="font-family:'Nunito',sans-serif; font-weight:700; font-size:12px; color:#74888F;">Formation digitale DFORMPRO</span>
+                    <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:12px; color:#2E7D32;">≈ 0 kg CO₂</span>
+                  </div>
+                  <div style="height:12px; background-color:#e5e7eb !important; border-radius:999px; overflow:hidden;">
+                    <div class="bar-grow-h" style="height:12px; width:3%; background-color:#2E7D32 !important; border-radius:999px; animation-delay:0.4s;"></div>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 justify-center pt-2" style="background-color:transparent !important;">
+                  <span class="material-symbols-outlined" style="font-size:18px; color:#2E7D32; background-color:transparent !important;">trending_down</span>
+                  <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:13px; color:#000;">~100 % de réduction des émissions de déplacement</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Et cela sans compter -->
+            <div class="keep-white rounded-2xl p-6" style="border:2px solid #e5e7eb;">
+              <p style="font-family:'Arial',sans-serif; font-weight:bold; font-size:15px; color:#000; margin-bottom:14px;">Et cela sans compter :</p>
+              <div class="space-y-3" style="background-color:transparent !important;">
+                <div class="flex items-center gap-3 rounded-xl px-4 py-3" style="background-color:transparent !important; border:1px solid #e5e7eb;">
+                  <div class="leaf-icon" style="width:36px; height:36px;">
+                    <span class="material-symbols-outlined" style="font-size:18px; color:#2E7D32; background-color:transparent !important;">directions_car</span>
+                  </div>
+                  <span style="font-family:'Nunito',sans-serif; font-weight:700; font-size:13px; color:#000;">Les déplacements du formateur</span>
+                </div>
+                <div class="flex items-center gap-3 rounded-xl px-4 py-3" style="background-color:transparent !important; border:1px solid #e5e7eb;">
+                  <div class="leaf-icon" style="width:36px; height:36px;">
+                    <span class="material-symbols-outlined" style="font-size:18px; color:#2E7D32; background-color:transparent !important;">description</span>
+                  </div>
+                  <span style="font-family:'Nunito',sans-serif; font-weight:700; font-size:13px; color:#000;">Les impressions papier</span>
+                </div>
+                <div class="flex items-center gap-3 rounded-xl px-4 py-3" style="background-color:transparent !important; border:1px solid #e5e7eb;">
+                  <div class="leaf-icon" style="width:36px; height:36px;">
+                    <span class="material-symbols-outlined" style="font-size:18px; color:#2E7D32; background-color:transparent !important;">bolt</span>
+                  </div>
+                  <span style="font-family:'Nunito',sans-serif; font-weight:700; font-size:13px; color:#000;">Les consommations énergétiques liées aux locaux</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         RSE STRATÉGIQUE
+    ══════════════════════════════════════════ -->
+    <section class="py-16 relative overflow-hidden" style="background-color:#F2F0EF !important;">
+      <img src="images/bas droit grand.png" class="bg-deco" style="bottom:0;right:0;width:360px;opacity:0.25;" alt="">
+
+      <div class="max-w-5xl mx-auto px-6 relative z-10" style="background-color:transparent !important;">
+
+        <div class="section-divider fade-up" style="background-color:transparent !important;">
+          <span></span>
+          <span class="badge" style="border-color:#67DAD5; color:#67DAD5; background-color:#F2F0EF !important; white-space:nowrap;">
+            <span class="material-symbols-outlined" style="font-size:16px; background-color:transparent !important;">eco</span>
+            RSE & Stratégie
+          </span>
+          <span></span>
+        </div>
+
+        <div class="keep-white rounded-2xl p-8 md:p-12 shadow-neo fade-up delay-1" style="border:2px solid #000;">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center" style="background-color:transparent !important;">
+            <div style="background-color:transparent !important;">
+              <h2 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:24px; color:#000; margin-bottom:16px; line-height:1.3;">
+                Intégrez la formation dans votre démarche RSE
+              </h2>
+              <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:15px; color:#74888F; margin-bottom:20px;">
+                Avec DFORMPRO DIGITAL, chaque action de formation est un acte responsable que vous pouvez mesurer, valoriser et communiquer.
+              </p>
+              <p style="font-family:'Arial',sans-serif; font-weight:bold; font-style:italic; font-size:16px; color:#67DAD5;">
+                Former devient un investissement<br />à la fois humain et écologique.
+              </p>
+            </div>
+            <div class="space-y-3" style="background-color:transparent !important;">
+              <div class="flex items-start gap-3 rounded-xl px-4 py-3" style="background-color:rgba(103,218,213,0.08) !important; border:2px solid #67DAD5;">
+                <div style="width:22px; height:22px; border-radius:50%; background-color:#67DAD5 !important; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:#000; font-size:12px; font-weight:bold;">✓</div>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:14px; color:#000;">Réduction mesurable de l'empreinte carbone</span>
+              </div>
+              <div class="flex items-start gap-3 rounded-xl px-4 py-3" style="background-color:rgba(103,218,213,0.08) !important; border:2px solid #67DAD5;">
+                <div style="width:22px; height:22px; border-radius:50%; background-color:#67DAD5 !important; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:#000; font-size:12px; font-weight:bold;">✓</div>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:14px; color:#000;">Indicateur valorisable dans vos rapports RSE</span>
+              </div>
+              <div class="flex items-start gap-3 rounded-xl px-4 py-3" style="background-color:rgba(103,218,213,0.08) !important; border:2px solid #67DAD5;">
+                <div style="width:22px; height:22px; border-radius:50%; background-color:#67DAD5 !important; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:#000; font-size:12px; font-weight:bold;">✓</div>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:14px; color:#000;">Engagement concret pour vos équipes et partenaires</span>
+              </div>
+              <div class="flex items-start gap-3 rounded-xl px-4 py-3" style="background-color:rgba(103,218,213,0.08) !important; border:2px solid #67DAD5;">
+                <div style="width:22px; height:22px; border-radius:50%; background-color:#67DAD5 !important; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:#000; font-size:12px; font-weight:bold;">✓</div>
+                <span style="font-family:'Arial',sans-serif; font-weight:bold; font-size:14px; color:#000;">Aligné avec les objectifs de décarbonation du secteur</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════
+         CTA
+    ══════════════════════════════════════════ -->
+    <section class="px-6 py-16" style="background-color:#F2F0EF !important;">
+      <div class="max-w-5xl mx-auto rounded-[40px] py-16 px-8 md:px-12 text-center relative overflow-hidden keep-cyan" style="border:2px solid #000; box-shadow:8px 8px 0px 0px #000;">
+        <div class="absolute top-0 right-0 w-56 h-56 rounded-full translate-x-1/2 -translate-y-1/2" style="background-color:rgba(255,255,255,0.15) !important;"></div>
+        <div class="absolute bottom-0 left-0 w-40 h-40 rounded-full -translate-x-1/3 translate-y-1/3" style="background-color:rgba(255,255,255,0.15) !important;"></div>
+        <div class="relative z-10" style="background-color:transparent !important;">
+          <h2 style="font-family:'Arial',sans-serif; font-weight:bold; font-size:32px; color:#000; margin-bottom:16px;">
+            Engagez-vous pour une formation plus responsable
+          </h2>
+          <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:16px; color:rgba(0,0,0,0.75); margin-bottom:32px; background-color:transparent !important;">
+            Demandez votre devis et découvrez comment DFORMPRO DIGITAL contribue à votre stratégie RSE.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4" style="background-color:transparent !important;">
+            <a href="index.html" class="inline-flex items-center gap-2 font-bold py-4 px-10 rounded-[20px] text-lg transition-all" style="background-color:#000 !important; color:#fff; font-family:'Nunito',sans-serif;">
+              Demander un devis
+              <span class="material-symbols-outlined" style="background-color:transparent !important;">arrow_forward</span>
+            </a>
+            <a href="index.html" class="inline-flex items-center gap-2 font-bold py-4 px-10 rounded-[20px] text-lg transition-all" style="background-color:#F2F0EF !important; color:#000; border:2px solid #000; font-family:'Nunito',sans-serif;">
+              Voir toutes nos formations
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="py-10 px-6 keep-black" style="border-top:2px solid rgba(255,255,255,0.1);">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4" style="background-color:transparent !important;">
+      <a href="index.html" class="inline-block rounded-xl p-2" style="background-color:#fff !important;">
+        <img src="images/logo.jpg" alt="DFormPro Digital" class="h-8 w-auto object-contain">
+      </a>
+      <p style="font-family:'Nunito',sans-serif; font-weight:400; font-size:13px; color:#fff; background-color:transparent !important;">
+        © 2024 DFormPro Digital. Tous droits réservés.
+      </p>
+      <a href="index.html" style="color:#67DAD5; font-family:'Arial',sans-serif; font-weight:bold; font-size:13px; background-color:transparent !important;">
+        ← Retour à l'accueil
+      </a>
+    </div>
+  </footer>
+
+</body>
+</html>
